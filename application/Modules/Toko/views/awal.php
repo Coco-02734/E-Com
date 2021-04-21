@@ -33,8 +33,10 @@
                 }
             </style>
             <?php if ($user) { ?>
-                <i class="icon fas fa-shopping-cart"></i>
-                <span class="badge badge-success ml-2"><?= $jml['jumlah']; ?></span>
+                <a href="<?= base_url('toko/toko/keranjang'); ?>">
+                    <i class="icon fas fa-shopping-cart"></i>
+                    <span class="badge badge-success ml-2"><?= $jml['jumlah']; ?></span>
+                </a>
                 <a href="<?= base_url('toko/toko/logout'); ?>">
                     <i class="icon fas fa-sign-in-alt ml-4"></i>
                 </a>

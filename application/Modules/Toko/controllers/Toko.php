@@ -73,4 +73,17 @@ class Toko extends CI_Controller
 			Silahkan login !!!</div>');
         redirect('toko');
     }
+
+    public function keranjang()
+    {
+        $data['title'] = "Raski Store | Halaman Awal";
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['produk'] = $this->db->get("tb_produk")->result_array();
+        if ($data['user']) {
+            $data['keranjang'] = $this->db->from('keranjang')->join('tb_produk', 'tb_produk.id_produk=keranjang.id_produk')->where('id_user', $data['user']['id'])->get()->result_array();
+            $data['jml'] = $this->db->select_sum('total_harga')->get_where('keranjang', ['id_user' => $data['user']['id'], 'aktif' => 0])->row_array();
+            $data['jml_brg'] = $this->db->select_sum('jumlah')->get_where('keranjang', ['id_user' => $data['user']['id'], 'aktif' => 0])->row_array();
+        }
+        $this->load->view("keranjang", $data);
+    }
 }
